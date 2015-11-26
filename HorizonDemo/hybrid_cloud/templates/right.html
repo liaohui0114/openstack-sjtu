@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>家庭联系人</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="static/js/jquery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+    <div class="place">
+        <span>云集群1</span>
+        </ul>
+    </div>
+
+
+    <div class="tools">
+    
+    	<ul class="toolbar">
+        <li class="click"><span><img src="images/t01.png" /></span>创建虚拟机</li>
+        <li class="click"><span><img src="images/t02.png" /></span>修改虚拟机</li>
+        <li><span><img src="images/t03.png" /></span>删除虚拟机</li>
+        </ul>
+
+    </div>
+
+    <div>
+        <ul>
+            <li class="clicks1"><img src="images/ico01.png" /><p><a href="index.html">系统主页</a></p></li>
+        </ul>
+    </div>
+
+
+        <div style="width: 10px">
+            <img src="images/indexpic.png" alt=""/>
+        </div>
+</body>
+</html>
