@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>实例详细信息</title>
+<link href="static/css/style.css" rel="stylesheet" type="text/css" />
+<link href="static/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+
+<body>
+	<input id="id_region" name="region" type="hidden" value="http://192.168.1.157:5000/v2.0" />
+    <div class="place">
+        <span>云集群</span>
+        </ul>
+    </div>
+
+    <div>
+        <ul>
+            <li class="clicks1"><img src="static/images/ico01.png" /><p><a href="index.html">系统主页</a></p></li>
+        </ul>
+    </div>
+
+
+        <div style="width: 100%">
+            <div style="margin-top: 10px">
+                <p class="fontstyles">虚拟机</p>
+            </div>
+            <div style="margin-top: 15px;margin-bottom: 20px;margin-left: 10px">
+                <p class="fontstyles2">详细信息</p>
+            </div>
+              
+	    <div style="margin-top: 15px;margin-bottom: 10px;margin-left:20px;font-size:40px">
+		<ul>
+		{% for key,value in detail.items %}
+	   	<li><strong>{{ key }}</strong>:  {{ value }}<li>
+	   	{% endfor %}
+		</ul>
+            </div>
+	   
+
+            
+
+        </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+$(document).ready(function(){
+	//get endpoint
+	var endpoint = $("#id_region").val();
+	getOverview(endpoint);
+})
+
+
+function getOverview(endpoint)
+{
+	$.ajax({
+		url:"/action/overviewAction",
+		//async: false, //if we want to lock the screen
+		data:{
+			"url":endpoint,
+			
+			//form:$("#id_form_node").serialize()  //using & to connetion,style:startNode=192.168.1.152&endNode=192.168.1.152
+		},
+		type:'POST',//action:post or get
+		dataType:'json',
+		beforeSend:function(){
+			//alert("beforeSend!");
+		},
+		success:function(data){
+			//success
+			alert("get overview success");
+			//do something here with data
+			$.each(data,function(name,value){
+				//alert("name="+name);				
+				if("usages" == name){
+					$.each(value,function(i,usage){
+						//alert(i+":"+usage["name"]+";"+usage["id"]+";"+usage["vcpus"]+";"+usage["disk"]+";"+usage["createTime"]+";"+usage["ram"]);
+						var tmpTr = "";
+						tmpTr += "<tr  bgcolor=\"#F5F5F5\">";
+						tmpTr += "<td><p><a href=\"/detail/?id="+usage["id"]+"\">"+usage["name"]+"</a></p></td>";
+						tmpTr += "<td><p>"+usage["vcpus"]+"</p></td>";
+						tmpTr += "<td><p>"+usage["disk"]+"GB</p></td>";
+						tmpTr += "<td><p>"+usage["ram"]+"MB</p></td>";
+						tmpTr += "<td><p>"+usage["createTime"]+"</p></td>";
+                  tmpTr += "</tr>"
+                  $("#id_table_usage").append(tmpTr);
+                
+					});
+				}
+				else if("limits" == name){
+					//do something here
+				}			
+			}				
+			);
+		},
+		error:function(xhr,type){
+			alert("fail to get overview!");
+		}
+	});
+}
+
