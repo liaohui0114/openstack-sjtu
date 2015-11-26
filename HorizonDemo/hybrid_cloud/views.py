@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect,HttpResponse
 from hybrid_cloud.api import CloudAPI
 from hybrid_cloud.api import User
 ####
+
 # Create your views here.
 
 
