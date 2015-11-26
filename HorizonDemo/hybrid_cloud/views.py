@@ -6,6 +6,8 @@ from hybrid_cloud.api import User
 ####
 
 # Create your views here.
+
+
 #function: to judge if user has login;we use session
 def isLogin(request):
     '''
