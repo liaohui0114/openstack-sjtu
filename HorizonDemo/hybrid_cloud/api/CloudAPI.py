@@ -3,7 +3,9 @@ Created on Nov 26, 2015
 
 @author: stack
 '''
+from __future__ import division
 import NovaAdapter
+
 
 class CloudAPI(object):
     '''
@@ -58,15 +60,48 @@ class CloudAPI(object):
         return True
     
     def getLimits(self):
+        tmp_lists = []
+        lists=[]
         try:
             client = self.getAuth()
             if client:
                 limits = client.getLimits()
+                '''for i,j in limits.items():
+                    tmpList=[]
+                    tmpList.append(i)
+                    tmpList.append(j)
+                    lists.append(tmpList)'''
+                p=limits["instanceUsed"]/limits["instanceTotal"]
+                tmp_lists.append(['Used',p*100])
+                tmp_lists.append(['NotUsed',(1-p)*100])
+                lists.append(tmp_lists)
+                tmp_lists = []
+                p=limits["coresUsed"]/limits["coresTotal"]
+                tmp_lists.append(['Used',p*100])
+                tmp_lists.append(['NotUsed',(1-p)*100])
+                lists.append(tmp_lists)
+                tmp_lists = []
+                p=limits["ramUsed"]/limits["ramTotal"]
+                tmp_lists.append(['Used',p*100])
+                tmp_lists.append(['NotUsed',(1-p)*100])
+                lists.append(tmp_lists)
+                tmp_lists = []
+                p=limits["floatingIpsUsed"]/limits["floatingIpsTotal"]
+                tmp_lists.append(['Used',p*100])
+                tmp_lists.append(['NotUsed',(1-p)*100])
+                lists.append(tmp_lists)
+                tmp_lists = []
+                p=limits["totalGigabytesUsed"]/limits["volumeStorage"]
+                tmp_lists.append(['Used',p*100])
+                tmp_lists.append(['NotUsed',(1-p)*100])
+                lists.append(tmp_lists)
+
+
         except Exception,e:
             print Exception,":",e
             return None # if failed,return None
         
-        return limits
+        return lists
     
     def getUsages(self):
         try:

@@ -1,7 +1,7 @@
 from CloudAPI import *
-AUTHURL = "http://192.168.1.157:5000/v2.0"
+AUTHURL = "http://192.168.1.123:5000/v2.0"
 USER = "admin"
-PASSWD = "1"
+PASSWD = "admin"
 TENANT="demo"
 REGION = "RegionOne"
 

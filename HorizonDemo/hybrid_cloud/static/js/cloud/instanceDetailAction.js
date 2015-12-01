@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	//get endpoint
 	//alert('hello');
-	var endpoint = "http://192.168.1.164:5000/v2.0";
+	var endpoint = "http://192.168.1.123:5000/v2.0";
 	getInstanceDetail(endpoint);
 })
 
@@ -31,7 +31,7 @@ function getInstanceDetail(endpoint)
 					$.each(value,function(i,detail){
 						//alert(i+":"+usage["name"]+";"+usage["id"]+";"+usage["vcpus"]+";"+usage["disk"]+";"+usage["createTime"]+";"+usage["ram"]);
 						var tmpTr = "";
-						tmpTr += "<tr style=\"width: 100%\" bgcolor=\"#FCFCFC\">";
+                        tmpTr += "<tr style=\"width: 100%\" bgcolor=\"#FCFCFC\">";
 						tmpTr += "<td><input type=\"checkbox\"></td>";
 						tmpTr += "<td><p>"+detail["name"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["image"]+"</p></td>";
@@ -42,10 +42,16 @@ function getInstanceDetail(endpoint)
 						tmpTr += "<td><p>"+detail["power_state"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["created"]+"</p></td>";
 						tmpTr += "<td></td>";
-                  		tmpTr += "</tr>"
+                  		tmpTr += "</tr>";
                   $("#details_list").append(tmpTr);
                 
 					});
+					var tmpTr1 = "";
+                    tmpTr1 += "<tr style=\"width: 100%\" bgcolor=\"#FCFCFC\">";
+                    tmpTr1 += "<td colspan=\"10\"></td>";
+                    tmpTr1 += "</tr>";
+                    $("#details_list").append(tmpTr1);
+
 				}
 				// else if("limits" == name){
 				// 	//do something here

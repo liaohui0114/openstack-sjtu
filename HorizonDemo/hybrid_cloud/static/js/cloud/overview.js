@@ -7,6 +7,12 @@ $(document).ready(function(){
 
 function getOverview(endpoint)
 {
+    var myname=new Array();
+    myname[0]="instance";
+    myname[1]="core";
+    myname[2]="ram";
+    myname[3]="floatingIP";
+    myname[4]="volume";
 	$.ajax({
 		url:"/action/overviewAction",
 		//async: false, //if we want to lock the screen
@@ -22,7 +28,7 @@ function getOverview(endpoint)
 		},
 		success:function(data){
 			//success
-			alert("get overview success");
+			//alert("get overview success");
 			//do something here with data
 			$.each(data,function(name,value){
 				//alert("name="+name);				
@@ -42,7 +48,13 @@ function getOverview(endpoint)
 					});
 				}
 				else if("limits" == name){
-					//do something here
+				    $.each(value,function(j,limit){
+						//alert(i+":"+usage["name"]+";"+usage["id"]+";"+usage["vcpus"]+";"+usage["disk"]+";"+usage["createTime"]+";"+usage["ram"]);
+
+						//alert(j);
+					    circle('#container'+(j+1),limit,myname[j]);
+
+					});
 				}			
 			}				
 			);

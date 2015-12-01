@@ -1,8 +1,8 @@
 
 ####defalut setting
-AUTHURL = "http://192.168.1.164:5000/v2.0"
+AUTHURL = "http://192.168.1.123:5000/v2.0"
 USER = "admin"
-PASSWD = "1"
+PASSWD = "admin"
 TENANT="demo"
 
 ##to get nova credentials

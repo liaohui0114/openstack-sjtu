@@ -27,7 +27,7 @@ def loginAction(request):
         username = request.POST["username"]
         password = request.POST["password"]
         print username,password
-        if username == "admin" and password == "1":
+        if username == "admin" and password == "admin":
             
             #return HttpResponseRedirect("/main/")
             response = HttpResponse(json.dumps({}), content_type="application/json")
