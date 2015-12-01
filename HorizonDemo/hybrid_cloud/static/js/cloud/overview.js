@@ -36,7 +36,7 @@ function getOverview(endpoint)
 						tmpTr += "<td><p>"+usage["disk"]+"GB</p></td>";
 						tmpTr += "<td><p>"+usage["ram"]+"MB</p></td>";
 						tmpTr += "<td><p>"+usage["createTime"]+"</p></td>";
-                  tmpTr += "</tr>"
+                  		tmpTr += "</tr>"
                   $("#id_table_usage").append(tmpTr);
                 
 					});

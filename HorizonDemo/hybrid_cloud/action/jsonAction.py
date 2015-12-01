@@ -63,4 +63,25 @@ def overviewAction(request):
         
         ##esle operation failed
 
-    
+def createInstanceAction(request):
+    print 'createInstanceAction'
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        print name
+        cloud = CloudAPI.CloudAPI(**User.get_nova_credentials())
+        if cloud.isSchedulable():
+            result = cloud.createInstance(name)
+            print result
+    return HttpResponse("finished")
+
+def instanceDetailAction(request):
+    print 'instanceDetailAction'
+    if request.method == 'POST':
+        authurl = request.POST["url"]
+        print authurl
+        cloud = CloudAPI.CloudAPI(**User.get_nova_credentials(authurl))
+        if cloud.isSchedulable():
+            details = cloud.getInstanceDetailAll()
+        if details:
+            print details
+            return HttpResponse(json.dumps({"details":details}), content_type="application/json")

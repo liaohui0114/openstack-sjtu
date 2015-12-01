@@ -52,6 +52,12 @@ if __name__ == "__main__":
             print usage
             for u in usage:
                 print nc.getInstanceDetail(u["id"])
+
+            # servers = nc.getAuth().getServerList()
+            # for server in servers:
+            #     print server.id
+
+            #print nc.getInstanceDetailAll()
                 
             #create instance
             #nc.createInstance('lh_vm1')

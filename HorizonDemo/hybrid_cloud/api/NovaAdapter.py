@@ -46,6 +46,10 @@ class NovaAdapter(object):
                 usage_limits["instanceTotal"] = i.value
             elif i.name == "totalInstancesUsed":
                 usage_limits["instanceUsed"] = i.value
+            elif i.name == "maxTotalCores":
+                usage_limits["coresTotal"] = i.value
+            elif i.name == "totalCoresUsed":
+                usage_limits["coresUsed"] = i.value
             elif i.name == "maxTotalRAMSize":
                 usage_limits["ramTotal"] = i.value
             elif i.name == "totalRAMUsed":
@@ -81,7 +85,7 @@ class NovaAdapter(object):
                 #usage_limits[i.name] = i.value
                 if i.name ==  "maxTotalVolumeGigabytes":
                     usage_limits["volumeStorage"] = i.value
-                elif i.name == "totalVolumesUsed":
+                elif i.name == "totalGigabytesUsed":
                     usage_limits["totalGigabytesUsed"] = i.value
                 elif i.name == "maxTotalVolumes":
                     usage_limits["volumeTotal"] = i.value
@@ -127,8 +131,8 @@ class NovaAdapter(object):
         return usages
     
     def createDefaultInstance(self,name):
-        image = self.nova_client.images.list()[0]    
-        #image = nova_client.images.find(name="cirros-0.3.4-x86_64-uec (24.0MB)")
+        #image = self.nova_client.images.list()[0]    
+        image = self.nova_client.images.find(name="cirros-0.3.4-x86_64-uec")
         flavor = self.nova_client.flavors.find(name="m1.tiny")
         net = self.nova_client.networks.find(label="private")
         nics = [{'net-id':net.id}]
@@ -165,6 +169,19 @@ class NovaAdapter(object):
             addresses.append(addr["addr"]) #get ipv4,ipv6,floating ip
         
         detail["address"] = addresses
+        detail["image"] = self.nova_client.images.get(server.image['id']).name
+        power_states = [
+        'NOSTATE',      # 0x00
+        'Running',      # 0x01
+        '',             # 0x02
+        'Paused',       # 0x03
+        'Shutdown',     # 0x04
+        '',             # 0x05
+        'Crashed',      # 0x06
+        'Suspended'     # 0x07
+        ]
+        detail["power_state"] = power_states[getattr(server, "OS-EXT-STS:power_state")]
+        detail["availability_zone"] = getattr(server, "OS-EXT-AZ:availability_zone")
         #########end#########33
         return detail
         

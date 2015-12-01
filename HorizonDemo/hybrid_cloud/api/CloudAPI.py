@@ -89,3 +89,17 @@ class CloudAPI(object):
             return None # if failed,return None
         
         return detail
+
+    def getInstanceDetailAll(self):
+    	try:
+    		client = self.getAuth()
+    		if client:
+    			details = []
+    			servers = client.getServerList()
+    			for server in servers:
+    				details.append(client.getInstanceDetail(server.id))
+    	except Exception,e:
+            print Exception,":",e
+            return None # if failed,return None
+        
+        return details
