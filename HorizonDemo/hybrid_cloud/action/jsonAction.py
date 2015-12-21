@@ -5,9 +5,11 @@ Created on Nov 20, 2015
 '''
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
+from hybrid_cloud.scheduler.cloud_scheduler import cloud_scheduler_manager
 import json
 from hybrid_cloud.api import CloudAPI
 from hybrid_cloud.api import User
+
 
 def loginAction(request):
     print 'loginAction'
@@ -64,13 +66,31 @@ def overviewAction(request):
         ##esle operation failed
 
 def createInstanceAction(request):
+    scheduler = cloud_scheduler_manager.CloudSchedulerManager()
+    instancetype={
+        'tiny':{'type':'tiny','cpu': 1, 'ram_mb': 512, 'disk_gb': 1},
+        'small':{'type':'small','cpu': 1, 'ram_mb': 2048, 'disk_gb': 20},
+        'medium':{'type':'medium','cpu': 2, 'ram_mb': 4096, 'disk_gb': 40},
+        'large':{'large':'small','cpu': 4, 'ram_mb': 8192, 'disk_gb': 80},
+        'xlarge':{'xlarge':'small','cpu': 8, 'ram_mb': 16384, 'disk_gb': 160}
+    }
     print 'createInstanceAction'
     if request.method == 'POST':
         name = request.POST.get('name')
-        print name
-        cloud = CloudAPI.CloudAPI(**User.get_nova_credentials())
+        instance_type = request.POST.get('type')
+        print instance_type
+        request={
+            'instance_name':name,
+            'flavor':instancetype[instance_type],
+            'policy':{
+
+            }
+        }
+        create_spec=scheduler.select_cloud(request);
+        print create_spec
+        cloud = CloudAPI.CloudAPI(**User.get_nova_credentials("http://"+create_spec['cloud_list']+"/v2.0"))
         if cloud.isSchedulable():
-            result = cloud.createInstance(name)
+            result = cloud.createInstance(create_spec)
             print result
     return HttpResponse("finished")
 

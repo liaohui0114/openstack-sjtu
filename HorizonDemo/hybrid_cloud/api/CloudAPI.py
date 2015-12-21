@@ -12,7 +12,6 @@ class CloudAPI(object):
     classdocs
     '''
 
-
     def __init__(self, username=None,api_key=None,project_id=None,auth_url='',**kwargs):
         '''
         Constructor
@@ -47,12 +46,13 @@ class CloudAPI(object):
             print Exception,":",e
             return False # if failed,return False
         
-    def createInstance(self,name,image='',flavor='',**kwargs):
+    def createInstance(self,createspec):
         try:
             client = self.getAuth()
             # if client not None
+            print client.getLimits()
             if client:
-                client.createDefaultInstance(name) #you can use createInstance either
+                client.createDefaultInstance(createspec) #you can use createInstance either
         except Exception,e:
             print Exception,":",e
             return False # if failed,return False

@@ -20,7 +20,6 @@ class NovaAdapter(object):
     classdocs
     '''
 
-
     def __init__(self, version='2',username=None, api_key=None, project_id=None,auth_url='',**kwargs):
         '''
         Constructor
@@ -130,14 +129,16 @@ class NovaAdapter(object):
         
         return usages
     
-    def createDefaultInstance(self,name):
+    def createDefaultInstance(self,createspec):
+        print('4444444');
         #image = self.nova_client.images.list()[0]    
         image = self.nova_client.images.find(name="cirros-0.3.4-x86_64-uec")
-        flavor = self.nova_client.flavors.find(name="m1.tiny")
-        net = self.nova_client.networks.find(label="private")
+        print createspec
+        flavor = self.nova_client.flavors.find(name="m1."+createspec['flavor']['type'])
+        net = self.nova_client.networks.find(label='private')
         nics = [{'net-id':net.id}]
         ##create instance
-        instance = self.nova_client.servers.create(name=name,image=image,flavor=flavor,nics=nics)
+        instance = self.nova_client.servers.create(name=createspec['instance_name'],image=image,flavor=flavor,nics=nics)
         return instance
     
     def createInstance(self,name,image,flavor,**kwargs):
