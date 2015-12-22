@@ -1,5 +1,5 @@
 
-from oslo_utils import importutils
+from hybrid_cloud.scheduler.oslo_utils import importutils
 
 CONF_cloud_state_manager = 'hybrid_cloud.scheduler.oslib.cloud_state_manager.CloudStateManager'
 

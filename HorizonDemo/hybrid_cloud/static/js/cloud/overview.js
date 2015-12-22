@@ -2,8 +2,34 @@ $(document).ready(function(){
 	//get endpoint
 	var endpoint = $("#id_region").val();
 	getOverview(endpoint);
+	
+	//action when we change selected
+	$("#id_cloud_info").change(function(){
+		var cloud = $("#id_cloud_info option:selected").val();
+		switch(cloud) {
+			case "cloud":
+				ShowAllCloud();
+				break;
+			case "cloud1":
+				HideAllCloud();
+				$("#id_cloud1").show();
+				break;
+			case "cloud2":
+				HideAllCloud();
+				$("#id_cloud2").show();
+				break;
+		}
+	});
 })
 
+function HideAllCloud(){
+	$("#id_cloud1").hide();
+	$("#id_cloud2").hide();
+}
+function ShowAllCloud(){
+	$("#id_cloud1").show();
+	$("#id_cloud2").show();
+}
 
 function getOverview(endpoint)
 {
@@ -60,7 +86,7 @@ function getOverview(endpoint)
 			);
 		},
 		error:function(xhr,type){
-			alert("fail to get overview!");
+			//alert("fail to get overview!");
 		}
 	});
 }

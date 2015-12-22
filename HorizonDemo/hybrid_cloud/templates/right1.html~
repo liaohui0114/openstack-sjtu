@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>云1概况</title>
+<link href="static/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="static/js/jquery.js"></script>
+<link href="static/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/exporting.js"></script>
+<script type="text/javascript" src="static/js/cloud/circle.js"></script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+
+</script>
+<!--
+<script type="text/javascript" src="static/js/cloud/jquery-1.11.1.min.js"></script>
+-->
+<script src="static/js/cloud/overview.js" type="text/javascript"></script>
+
+</head>
+
+
+<body>
+	<input id="id_region" name="region" type="hidden" value="http://192.168.1.123:5000/v2.0" />
+    <div class="place">
+        <span>云集群信息</span>
+        </ul>
+    </div>
+
+    <div>
+        <ul>
+            <li class="clicks1"><img src="static/images/ico01.png" /><p><a href="/index/" target="rightFrame">系统主页</a></p></li>
+        </ul>
+    </div>
+    <div>
+        <select id="id_cloud_info" name="所有云状态信息">
+        <option value="cloud"  selected="selected">所有云</option>
+        <option value="cloud1">云1</option>
+        <option value="cloud">云2</option>
+        </select>
+    </div>
+
+
+        <div id="id_cloud1" style="width: 100%">
+            <div style="margin-top: 10px">
+                <p class="fontstyles">云1概况</p>
+            </div>
+            <div style="margin-top: 15px;margin-bottom: 10px;margin-left: 10px">
+                <p class="fontstyles2">云1上限摘要</p>
+            </div>
+                <ul class="imglist">
+                    <li id="container1" style="width:350px;height:250px">
+                    </li>
+                    <li id="container2" style="width:350px;height:250px">
+                    </li>
+                    <li id="container3" style="width:350px;height:250px">
+                    </li>
+                    <li id="container4" style="width:350px;height:250px">
+                    </li>
+                    <li id="container5" style="width:350px;height:250px">
+                    </li>
+
+                </ul>
+
+            <div style="margin-top: 10px;margin-bottom: 10px;margin-left: 10px">
+                <p class="fontstyles2">云1使用情况摘要</p>
+            </div>
+
+            <table class="lines" id="id_table_usage">
+                <tr bgcolor="#EAEAEA">
+                    <td><p>云主机名称</p></td>
+                    <td><p>虚拟内核</p></td>
+                    <td><p>磁盘</p></td>
+                    <td><p>内存</p></td>
+                    <td><p>创建时间</p></td>
+                </tr>
+                <!--
+                <tr  bgcolor="#F5F5F5">
+                     <td colspan="5"><p>有创建虚拟机个数为</p></td>
+                </tr>
+                -->
+            </table>
+
+        </div>
+         <div id="id_cloud2" style="width: 100%">
+            <div style="margin-top: 10px">
+                <p class="fontstyles">云2概况</p>
+            </div>
+            <div style="margin-top: 15px;margin-bottom: 10px;margin-left: 10px">
+                <p class="fontstyles2">云2上限摘要</p>
+            </div>
+                <ul class="imglist">
+                    <li id="cloud2_container1" style="width:350px;height:250px">
+                    </li>
+                    <li id="cloud2_container2" style="width:350px;height:250px">
+                    </li>
+                    <li id="cloud2_container3" style="width:350px;height:250px">
+                    </li>
+                    <li id="cloud2_container4" style="width:350px;height:250px">
+                    </li>
+                    <li id="cloud2_container5" style="width:350px;height:250px">
+                    </li>
+
+                </ul>
+
+            <div style="margin-top: 10px;margin-bottom: 10px;margin-left: 10px">
+                <p class="fontstyles2">云2使用情况摘要</p>
+            </div>
+
+            <table class="lines" id="id_table_usage_cloud2_">
+                <tr bgcolor="#EAEAEA">
+                    <td><p>云主机名称</p></td>
+                    <td><p>虚拟内核</p></td>
+                    <td><p>磁盘</p></td>
+                    <td><p>内存</p></td>
+                    <td><p>创建时间</p></td>
+                </tr>
+                <!--
+                <tr  bgcolor="#F5F5F5">
+                     <td colspan="5"><p>有创建虚拟机个数为</p></td>
+                </tr>
+                -->
+            </table>
+
+        </div>
+</body>
+</html>

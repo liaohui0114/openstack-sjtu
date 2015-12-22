@@ -1,12 +1,29 @@
 $(document).ready(function(){
+
+
+	//create Instance
 	$("#id_create_instance").on("click",function(){
-		alert("create instance!");
 		var name = document.getElementById('instance_name').value;
 		var instance_type = document.getElementById('instance_type').value;
 		//alert(name);
 		createInstance(name,instance_type);
 		//do something here
 	});
+
+	////////////change policy////////////////
+	$("#btn_policy_base").on("click",function(){
+		HideAllPolicy();
+		$("#div_policy_base").show();
+	});
+	$("#btn_policy_security").on("click",function(){
+		HideAllPolicy();
+		$("#div_policy_security").show();
+	});
+	$("#btn_policy_price").on("click",function(){
+		HideAllPolicy();
+		$("#div_policy_price").show();
+	});
+	////////////end change policy///////////
 });
 
 
@@ -38,3 +55,8 @@ function createInstance()
 	});
 }
 
+function HideAllPolicy(){
+	$("#div_policy_base").hide();
+	$("#div_policy_security").hide();
+	$("#div_policy_price").hide();
+}

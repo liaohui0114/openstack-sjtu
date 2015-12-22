@@ -2,11 +2,44 @@ $(document).ready(function(){
 	//get endpoint
 	var endpoint = $("#id_region").val();
 	getOverview(endpoint);
+	
+	//action when we change selected
+	$("#id_cloud_info").change(function(){
+		alert("aa");
+		var cloud = $("#id_cloud_info option:selected").val();
+		switch(cloud) {
+			case "cloud":
+				ShowAllCloud();
+				break;
+			case "cloud1":
+				HideAllCloud();
+				$("#id_cloud1").show();
+				break;
+			case "cloud2":
+				HideAllCloud();
+				$("#id_cloud2").show();
+				break;
+		}
+	});
 })
 
+function HideAllCloud(){
+	$("#id_cloud1").hide();
+	$("#id_cloud2").hide();
+}
+function ShowAllCloud(){
+	$("#id_cloud1").show();
+	$("#id_cloud2").show();
+}
 
 function getOverview(endpoint)
 {
+    var myname=new Array();
+    myname[0]="instance";
+    myname[1]="core";
+    myname[2]="ram";
+    myname[3]="floatingIP";
+    myname[4]="volume";
 	$.ajax({
 		url:"/action/overviewAction",
 		//async: false, //if we want to lock the screen
@@ -22,7 +55,7 @@ function getOverview(endpoint)
 		},
 		success:function(data){
 			//success
-			alert("get overview success");
+			//alert("get overview success");
 			//do something here with data
 			$.each(data,function(name,value){
 				//alert("name="+name);				
@@ -31,18 +64,24 @@ function getOverview(endpoint)
 						//alert(i+":"+usage["name"]+";"+usage["id"]+";"+usage["vcpus"]+";"+usage["disk"]+";"+usage["createTime"]+";"+usage["ram"]);
 						var tmpTr = "";
 						tmpTr += "<tr  bgcolor=\"#F5F5F5\">";
-						tmpTr += "<td><p><a href=\"/detail/?id="+usage["id"]+"\">"+usage["name"]+"</a></p></td>";
+						tmpTr += "<td><p><a href=\"/detail/?id="+usage["id"]+"&endpoint="+endpoint+"\">"+usage["name"]+"</a></p></td>";
 						tmpTr += "<td><p>"+usage["vcpus"]+"</p></td>";
 						tmpTr += "<td><p>"+usage["disk"]+"GB</p></td>";
 						tmpTr += "<td><p>"+usage["ram"]+"MB</p></td>";
 						tmpTr += "<td><p>"+usage["createTime"]+"</p></td>";
-                  tmpTr += "</tr>"
+                  		tmpTr += "</tr>"
                   $("#id_table_usage").append(tmpTr);
                 
 					});
 				}
 				else if("limits" == name){
-					//do something here
+				    $.each(value,function(j,limit){
+						//alert(i+":"+usage["name"]+";"+usage["id"]+";"+usage["vcpus"]+";"+usage["disk"]+";"+usage["createTime"]+";"+usage["ram"]);
+
+						//alert(j);
+					    circle('#container'+(j+1),limit,myname[j]);
+
+					});
 				}			
 			}				
 			);

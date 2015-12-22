@@ -47,20 +47,20 @@ def indexFunc(request):
         return HttpResponseRedirect("/login/")
     return render_to_response("index.html")
 
-def right1Func(request):
+def overviewFunc(request):
     if not isLogin(request):
         return HttpResponseRedirect("/login/")
-    return render_to_response("right1.html")
+    return render_to_response("overview.html")
 
 def right2Func(request):
     if not isLogin(request):
         return HttpResponseRedirect("/login/")
     return render_to_response("right2.html")
 
-def instance1Func(request):
+def instanceFunc(request):
     if not isLogin(request):
         return HttpResponseRedirect("/login/")
-    return render_to_response("instance1.html")
+    return render_to_response("instance.html")
 
 def instance2Func(request):
     if not isLogin(request):

@@ -42,7 +42,7 @@ import inspect
 import os
 import sys
 
-from oslo_utils import importutils
+from hybrid_cloud.scheduler.oslo_utils import importutils
 
 
 ##--yufei,2015-12-09 16:34:00

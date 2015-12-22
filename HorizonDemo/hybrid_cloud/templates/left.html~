@@ -104,7 +104,8 @@ $(function(){
                 <cite></cite>混合云管理<i></i>
                 </div>
                 <ul class="menuson1">
-                    <li><cite></cite><a href="/overview/" target="rightFrame">混合云概况</a><i></i></li>                
+                    <li><cite></cite><a href="/overview/" target="rightFrame">混合云概况</a><i></i></li>
+                
                     <li><cite></cite><a href="/instance/" target="rightFrame">虚拟机管理</a><i></i></li>
                 </ul>
 

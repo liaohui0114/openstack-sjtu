@@ -152,7 +152,7 @@
 <div id="div_policy_security" style="display:none">
 security
 </div>
-<div id="div_policy_price" style="display:none">
+<div id="div_policy_price">
 price
 </div>
 </body>
