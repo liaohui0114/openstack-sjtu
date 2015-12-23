@@ -9,7 +9,7 @@ from hybrid_cloud.scheduler.cloud_scheduler import cloud_scheduler_manager
 import json
 from hybrid_cloud.api import CloudAPI
 from hybrid_cloud.api import User
-
+import hybrid_cloud.models as db
 
 def loginAction(request):
     print 'loginAction'
@@ -29,13 +29,34 @@ def loginAction(request):
         username = request.POST["username"]
         password = request.POST["password"]
         print username,password
-        if username == "admin" and password == "admin":
-            
+        
+        #if username == "admin" and password == "admin":
+        #db operation
+        if db.User.objects.get(username=username,password=password):    
             #return HttpResponseRedirect("/main/")
             response = HttpResponse(json.dumps({}), content_type="application/json")
             
-            #createSession(response,username)
-            #response.session["username"] = username
+            
+            #query db
+            userinfo = db.User.objects.get(username=username,password=password)
+            usercloudinfo = db.CloudUser.objects.filter(user=userinfo)
+            cloudinfo = {}
+            for item in usercloudinfo:
+                u = item.clouduser
+                pwd = item.cloudpassword
+                project = item.project
+                cloudname = item.cloud.cloudname
+                cloudendpoint = item.cloud.endpoint
+                cloudinfo[cloudname] = {"user":u,"pwd":pwd,"project":project,"endpoint":cloudendpoint}
+            
+            #create session
+            request.session["cloud"] = cloudinfo
+            
+            print 'session info:',request.session.get("cloud")
+            #print usercloudinfo,usercloudinfo[0].id,usercloudinfo[0].clouduser,usercloudinfo[0].cloudpassword,usercloudinfo[0].cloud.cloudname,usercloudinfo[0].cloud.endpoint
+            #request.session["cloud"] = {"cloud1":{"user":"liaohui","pwd":"liaohui","endpoint":"https://192.168.1.1"},"cloud2":{"user":"yangguang","pwd":"yangguang","endpoint":"https://192.168.1.1"}}
+            
+            
             response.set_cookie('username', username, 3600) #create cookies
             return response
 
@@ -46,6 +67,9 @@ def logoutAction(request):
         response = HttpResponseRedirect("/main/")
         response.delete_cookie('username')
         return response
+    if request.session.get('cloud'):
+            del request.session['cloud']
+            
 
 def overviewAction(request):
     print 'overviewAction'
