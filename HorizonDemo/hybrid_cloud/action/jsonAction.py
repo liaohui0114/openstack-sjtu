@@ -142,9 +142,12 @@ def instanceDetailAction(request):
     if request.method == 'POST':
         authurl = request.POST["url"]
         cloudname = request.POST["cloud"]
-        cloud = CloudAPI.CloudAPI(request,**get_nova_credentials(cloudname))
+        #print "cloudname",cloudname
+        cloud = CloudAPI.CloudAPI(**get_nova_credentials(request,cloudname))
+        
         if cloud.isSchedulable():
             details = cloud.getInstanceDetailAll()
+        
         if details:
-            print details
+            print "detailsssssss",details
             return HttpResponse(json.dumps({"details":details}), content_type="application/json")

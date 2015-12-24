@@ -5,7 +5,7 @@ $(document).ready(function(){
 	//alert(v);
 	var endpoint = "http://192.168.1.123:5000/v2.0";
 	getInstanceDetail("cloud1");
-	getInstanceDetail("cloud2");
+	//getInstanceDetail("cloud2");
 
 })
 
@@ -37,34 +37,37 @@ function getInstanceDetail(cloudName)
 						tmpTr += "<td><input type=\"checkbox\"></td>";
 
 						tmpTr += "<td style=\"display:none\">"+detail["id"]+"</td>"
-						tmpTr += "<td><p>"+"couldName"+"</p></td>";
+						tmpTr += "<td><p>"+cloudName+"</p></td>";
 
 
 						//tmpTr += "<td><p>"+detail["name"]+"</p></td>";
-						tmpTr += "<td><p><a href=\"/detail/?id="+detail["id"]+"&cloud="+cloudname+"\">"+detail["name"]+"</a></p></td>";
+						tmpTr += "<td><p><a href=\"/detail/?id="+detail["id"]+"&cloud="+cloudName+"\">"+detail["name"]+"</a></p></td>";
 						
 						tmpTr += "<td><p>"+detail["image"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["address"]+"</p></td>";
-						tmpTr += "<td></td>";
+						tmpTr += "<td><p>"+detail["flavor"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["status"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["availability_zone"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["power_state"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["created"]+"</p></td>";
-						tmpTr += "<td></td>";
+						tmpTr += "<td><select class= \"dfinput2\" onchange=\"instanceAction(this)\" >\
+						                <option value =\"floatingip\">Associate Floating IP</option>\
+						                <option value =\"start\">Start</option>\
+						                <option value =\"stop\">Stop</option>\
+						                <option value =\"terminate\">Terminate</option>\
+						                </select></td>";
                   		tmpTr += "</tr>";
                   		$("#details_list").append(tmpTr);
                 
 					});
-					var tmpTr1 = "";
-                    tmpTr1 += "<tr style=\"width: 100%\" bgcolor=\"#FCFCFC\">";
-                    tmpTr1 += "<td colspan=\"10\"></td>";
-                    tmpTr1 += "</tr>";
-                    $("#details_list").append(tmpTr1);
+					
+					//var tmpTr1 = "";
+                    //tmpTr1 += "<tr style=\"width: 100%\" bgcolor=\"#FCFCFC\">";
+                    //tmpTr1 += "<td colspan=\"11\"></td>";
+                    //tmpTr1 += "</tr>";
+                    //$("#details_list").append(tmpTr1);
 
-				}
-				// else if("limits" == name){
-				// 	//do something here
-				// }			
+				}			
 			}				
 			);
 		},
@@ -103,13 +106,13 @@ function getInstanceDetail(endpoint)
 						tmpTr += "<td><input type=\"checkbox\"></td>";
 
 						tmpTr += "<td style=\"display:none\">"+detail["id"]+"</td>"
-						tmpTr += "<td><p>"+"couldName"+"</p></td>";
+						tmpTr += "<td><p>"+couldName"+</p></td>";
 
 
 						tmpTr += "<td><p>"+detail["name"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["image"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["address"]+"</p></td>";
-						tmpTr += "<td></td>";
+						tmpTr += "<td><p>"+detail["flavor"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["status"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["availability_zone"]+"</p></td>";
 						tmpTr += "<td><p>"+detail["power_state"]+"</p></td>";

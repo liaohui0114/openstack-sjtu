@@ -154,7 +154,7 @@ class NovaAdapter(object):
         detail["status"] = server.status
         detail["created"] = server.created
         ##flaveor informations
-        detail["id"] = server.flavor["id"]
+        #detail["id"] = server.flavor["id"]
         detail["flavor"] = self.nova_client.flavors.get(server.flavor["id"]).name
         detail["ram"] = self.nova_client.flavors.get(server.flavor["id"]).ram
         detail["vcpus"] = self.nova_client.flavors.find(id=server.flavor["id"]).vcpus
