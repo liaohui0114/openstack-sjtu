@@ -19,6 +19,7 @@ def isLogin(request):
     username = request.COOKIES.get('username') #TO GET THE COOKIES
     if username:
         print ' login'
+        #print 'ssssssssssssss:',request.session.get("cloud")
         return True
     else:
         print 'not login'

@@ -11,6 +11,20 @@ from hybrid_cloud.api import CloudAPI
 from hybrid_cloud.api import User
 import hybrid_cloud.models as db
 
+def get_nova_credentials(request,cloudname):
+    d = {}
+    cloudinfo = request.session.get("cloud")
+    if cloudinfo and cloudinfo.has_key("ss"):
+        d['username'] = cloudinfo[cloudname]["user"]
+        d['api_key'] = cloudinfo[cloudname]["pwd"]
+        d['auth_url'] = cloudinfo[cloudname]["endpoint"]
+        d['project_id'] = cloudinfo[cloudname]["project"]
+    
+    #print 'ddddddddd:',d
+    return d
+
+
+
 def loginAction(request):
     print 'loginAction'
     '''
@@ -40,6 +54,8 @@ def loginAction(request):
             #query db
             userinfo = db.User.objects.get(username=username,password=password)
             usercloudinfo = db.CloudUser.objects.filter(user=userinfo)
+    
+            #print usercloudinfo,usercloudinfo[0].id,usercloudinfo[0].clouduser,usercloudinfo[0].cloudpassword,usercloudinfo[0].cloud.cloudname,usercloudinfo[0].cloud.endpoint
             cloudinfo = {}
             for item in usercloudinfo:
                 u = item.clouduser
@@ -48,16 +64,17 @@ def loginAction(request):
                 cloudname = item.cloud.cloudname
                 cloudendpoint = item.cloud.endpoint
                 cloudinfo[cloudname] = {"user":u,"pwd":pwd,"project":project,"endpoint":cloudendpoint}
-            
+            #request.session["cloud"] = {"cloud1":{"user":"liaohui","pwd":"liaohui","endpoint":"https://192.168.1.1"},"cloud2":{"user":"yangguang","pwd":"yangguang","endpoint":"https://192.168.1.1"}}
+            ###################################################################
             #create session
             request.session["cloud"] = cloudinfo
-            
-            print 'session info:',request.session.get("cloud")
-            #print usercloudinfo,usercloudinfo[0].id,usercloudinfo[0].clouduser,usercloudinfo[0].cloudpassword,usercloudinfo[0].cloud.cloudname,usercloudinfo[0].cloud.endpoint
-            #request.session["cloud"] = {"cloud1":{"user":"liaohui","pwd":"liaohui","endpoint":"https://192.168.1.1"},"cloud2":{"user":"yangguang","pwd":"yangguang","endpoint":"https://192.168.1.1"}}
-            
-            
+            #create cookies
             response.set_cookie('username', username, 3600) #create cookies
+            #################################################################
+            
+            print 'session info:',request.session.get("cloud") #print for test
+            #get_nova_credentials(request,"cloud1") #for test
+            
             return response
 
 def logoutAction(request):
@@ -68,7 +85,7 @@ def logoutAction(request):
         response.delete_cookie('username')
         return response
     if request.session.get('cloud'):
-            del request.session['cloud']
+        del request.session['cloud']
             
 
 def overviewAction(request):

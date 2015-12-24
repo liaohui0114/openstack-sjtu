@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-
+	
 	//create Instance
 	$("#id_create_instance").on("click",function(){
 		var name = document.getElementById('instance_name').value;

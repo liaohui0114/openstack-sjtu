@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>无标题文档</title>
+    <title>虚拟机实例</title>
     <link href="static/css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="static/js/jquery.js"></script>
     <script src="static/js/cloud/instanceDetailAction.js" type="text/javascript"></script>
@@ -30,7 +30,11 @@ margin-top:25px" >实例</p>
 
 <table class="lines2" id="details_list">
     <tr style="width: 100%" bgcolor="#F7F7F7">
+        
+        
         <td><input type="checkbox"></td>
+        <td style="display:none">instance_id</td>
+        <td>所属云</td>
         <td>云主机名称</td>
         <td>镜像名称</td>
         <td>IP地址</td>
@@ -39,10 +43,34 @@ margin-top:25px" >实例</p>
         <td>可用域</td>
         <td>电源状态</td>
         <td>创建时间</td>
+        
         <td>修改</td>
 
     </tr>
-   
+     <tr style="width: 100%">
+        
+        <td><input type="checkbox"></td>
+        <td style="display:none">instance id</td>
+        <td>cloud1</td>
+        <td>test</td>
+        <td>cirros</td>
+        <td>10.10.10.10</td>
+        <td>m1.tiny</td>
+        <td>actived</td>
+        <td>demo</td>
+        <td>power</td>
+        <td>2015-12-24</td>
+        
+        <td>
+            <select class= "dfinput2" onchange="instanceAction(this)" >
+                <option value ="floatingip">Associate Floating IP</option>
+                <option value ="start">Start</option>
+                <option value ="stop">Stop</option>
+                <option value ="terminate">Terminate</option>
+            </select>
+        </td>
+
+    </tr>  
 
 </table>
 </body>
