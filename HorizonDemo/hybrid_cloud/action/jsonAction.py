@@ -14,13 +14,13 @@ import hybrid_cloud.models as db
 def get_nova_credentials(request,cloudname):
     d = {}
     cloudinfo = request.session.get("cloud")
-    if cloudinfo and cloudinfo.has_key("ss"):
+    if cloudinfo and cloudinfo.has_key(cloudname):
         d['username'] = cloudinfo[cloudname]["user"]
         d['api_key'] = cloudinfo[cloudname]["pwd"]
         d['auth_url'] = cloudinfo[cloudname]["endpoint"]
         d['project_id'] = cloudinfo[cloudname]["project"]
     
-    #print 'ddddddddd:',d
+    print 'ddddddddd:',d
     return d
 
 
@@ -92,8 +92,12 @@ def overviewAction(request):
     print 'overviewAction'
     if request.method == 'POST':
         authurl = request.POST["url"]
+        cloudname = request.POST["cloud"]
         print authurl
-        cloud = CloudAPI.CloudAPI(**User.get_nova_credentials(authurl))
+        print cloudname
+        #cloud = CloudAPI.CloudAPI(**User.get_nova_credentials(authurl))
+        cloud = CloudAPI.CloudAPI(**get_nova_credentials(request,cloudname))
+        print "222222"
         if cloud.isSchedulable():
             ##to judge if cloud can be schedulable
             limits = cloud.getLimits()
