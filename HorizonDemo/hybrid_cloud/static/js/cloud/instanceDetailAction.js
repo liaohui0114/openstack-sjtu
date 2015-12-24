@@ -5,7 +5,7 @@ $(document).ready(function(){
 	//alert(v);
 	var endpoint = "http://192.168.1.123:5000/v2.0";
 	getInstanceDetail("cloud1");
-	//getInstanceDetail("cloud2");
+	getInstanceDetail("cloud2");
 
 })
 
@@ -145,7 +145,7 @@ function instanceAction(obj){
 	//alert("instanceAction changed!");
 	var action = obj.value;//$(obj).val()
 	var instanceId = $(obj).parent().parent().find("td").eq(1).html();
-	var cloudName = $(obj).parent().parent().find("td").eq(2).html();
+	var cloudName = $(obj).parent().parent().find("td").eq(2).find("p").html();
 	alert("action:"+action+";instanceId:"+instanceId+";cloudName:"+cloudName);
 	switch(action){
 		case "floatingip":
