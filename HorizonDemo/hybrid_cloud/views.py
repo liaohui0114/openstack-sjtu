@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect,HttpResponse
 ##added for detail.html
 from hybrid_cloud.api import CloudAPI
 from hybrid_cloud.api import User
+from hybrid_cloud.action import jsonAction
 ####
 
 # Create your views here.
@@ -81,11 +82,12 @@ def detailFunc(request):
     if request.method == "GET":
         print 'get method'
         serverid = request.GET.get("id")
-        authurl = request.GET.get("endpoint")
-        print serverid,authurl
+        #authurl = request.GET.get("endpoint")
+        cloud = request.GET.get("cloud")
+        print serverid,cloud
         
         ###to get detail infos of server
-        cloud = CloudAPI.CloudAPI(**User.get_nova_credentials(authurl))
+        cloud = CloudAPI.CloudAPI(**jsonAction.get_nova_credentials(request,cloud))
         detail = cloud.getInstanceDetail(serverid)
         if detail:
             #if detail != None

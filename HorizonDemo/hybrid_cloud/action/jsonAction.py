@@ -20,7 +20,6 @@ def get_nova_credentials(request,cloudname):
         d['auth_url'] = cloudinfo[cloudname]["endpoint"]
         d['project_id'] = cloudinfo[cloudname]["project"]
     
-    print 'ddddddddd:',d
     return d
 
 
@@ -97,7 +96,6 @@ def overviewAction(request):
         print cloudname
         #cloud = CloudAPI.CloudAPI(**User.get_nova_credentials(authurl))
         cloud = CloudAPI.CloudAPI(**get_nova_credentials(request,cloudname))
-        print "222222"
         if cloud.isSchedulable():
             ##to judge if cloud can be schedulable
             limits = cloud.getLimits()
@@ -143,8 +141,8 @@ def instanceDetailAction(request):
     print 'instanceDetailAction'
     if request.method == 'POST':
         authurl = request.POST["url"]
-        print authurl
-        cloud = CloudAPI.CloudAPI(**User.get_nova_credentials(authurl))
+        cloudname = request.POST["cloud"]
+        cloud = CloudAPI.CloudAPI(request,**get_nova_credentials(cloudname))
         if cloud.isSchedulable():
             details = cloud.getInstanceDetailAll()
         if details:

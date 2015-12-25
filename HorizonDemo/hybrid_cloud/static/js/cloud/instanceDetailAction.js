@@ -4,10 +4,76 @@ $(document).ready(function(){
 	//var v = $("#details_list").find("tr").eq(1).find("td").eq(0).html();
 	//alert(v);
 	var endpoint = "http://192.168.1.123:5000/v2.0";
-	getInstanceDetail(endpoint);
+	getInstanceDetail("cloud1");
+	getInstanceDetail("cloud2");
+
 })
 
+function getInstanceDetail(cloudName)
+{
+	$.ajax({
+		url:"/action/instanceDetailAction",
+		//async: false, //if we want to lock the screen
+		data:{
+			"url":"http://192.168.1.1:5000/v2.0",
+			"cloud":cloudName
+		},
+		type:'POST',//action:post or get
+		dataType:'json',
+		beforeSend:function(){
+			//alert("beforeSend!");
+		},
+		success:function(data){
+			//success
+			//alert("get overview success");
+			//do something here with data
+			$.each(data,function(name,value){
+				//alert("name="+name);				
+				if("details" == name){
+					$.each(value,function(i,detail){
+						//alert(i+":"+usage["name"]+";"+usage["id"]+";"+usage["vcpus"]+";"+usage["disk"]+";"+usage["createTime"]+";"+usage["ram"]);
+						var tmpTr = "";
+                        tmpTr += "<tr style=\"width: 100%\" bgcolor=\"#FCFCFC\">";
+						tmpTr += "<td><input type=\"checkbox\"></td>";
 
+						tmpTr += "<td style=\"display:none\">"+detail["id"]+"</td>"
+						tmpTr += "<td><p>"+"couldName"+"</p></td>";
+
+
+						//tmpTr += "<td><p>"+detail["name"]+"</p></td>";
+						tmpTr += "<td><p><a href=\"/detail/?id="+detail["id"]+"&cloud="+cloudname+"\">"+detail["name"]+"</a></p></td>";
+						
+						tmpTr += "<td><p>"+detail["image"]+"</p></td>";
+						tmpTr += "<td><p>"+detail["address"]+"</p></td>";
+						tmpTr += "<td></td>";
+						tmpTr += "<td><p>"+detail["status"]+"</p></td>";
+						tmpTr += "<td><p>"+detail["availability_zone"]+"</p></td>";
+						tmpTr += "<td><p>"+detail["power_state"]+"</p></td>";
+						tmpTr += "<td><p>"+detail["created"]+"</p></td>";
+						tmpTr += "<td></td>";
+                  		tmpTr += "</tr>";
+                  		$("#details_list").append(tmpTr);
+                
+					});
+					var tmpTr1 = "";
+                    tmpTr1 += "<tr style=\"width: 100%\" bgcolor=\"#FCFCFC\">";
+                    tmpTr1 += "<td colspan=\"10\"></td>";
+                    tmpTr1 += "</tr>";
+                    $("#details_list").append(tmpTr1);
+
+				}
+				// else if("limits" == name){
+				// 	//do something here
+				// }			
+			}				
+			);
+		},
+		error:function(xhr,type){
+			//alert("fail to get overview!");
+		}
+	});
+}
+/*
 function getInstanceDetail(endpoint)
 {
 	$.ajax({
@@ -71,7 +137,7 @@ function getInstanceDetail(endpoint)
 		}
 	});
 }
-
+*/
 function instanceAction(obj){
 	//alert("instanceAction changed!");
 	var action = obj.value;//$(obj).val()
