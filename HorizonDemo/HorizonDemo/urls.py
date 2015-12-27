@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     url(r'action/overviewAction','hybrid_cloud.action.jsonAction.overviewAction'),
     url(r'action/createInstanceAction', 'hybrid_cloud.action.jsonAction.createInstanceAction'),
     url(r'action/instanceDetailAction', 'hybrid_cloud.action.jsonAction.instanceDetailAction'),
+    url(r'action/instanceActionsAction', 'hybrid_cloud.action.jsonAction.instanceActionsAction'),
     ############for static files##########################
     url(r'static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_PATH}),#liao,for static files like js,css,jpeg
     

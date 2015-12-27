@@ -185,5 +185,38 @@ class NovaAdapter(object):
         detail["availability_zone"] = getattr(server, "OS-EXT-AZ:availability_zone")
         #########end#########33
         return detail
-        
-        
+    
+    
+    
+    def stopServer(self,id):
+        server = self.nova_client.servers.get(id)
+        server.stop()
+        '''
+        if server and not server.status == "SHUTOFF":
+            server.stop()
+            return True
+        return None
+        '''
+    
+    def startServer(self,id):
+        server = self.nova_client.servers.get(id)
+        server.start()
+        '''
+        if server and not server.status == "ACTIVE":
+            server.start()
+            return True
+        return None
+        '''
+    
+    def terminateServer(self,id):
+        server = self.nova_client.servers.get(id)
+        server.delete()
+    
+    
+    def addFloatingIps(self,id):
+        floatingip = self.nova_client.floating_ips.create()
+        server = self.nova_client.servers.get(id)
+        #print floatingip
+        server.add_floating_ip(floatingip)
+        #server.remove_floating_ip("192.168.1.101")
+

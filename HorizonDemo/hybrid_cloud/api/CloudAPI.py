@@ -138,3 +138,41 @@ class CloudAPI(object):
             return None # if failed,return None
         
         return details
+    
+    def stopServer(self,id):
+        try:
+            client = self.getAuth()
+            client.stopServer(id)
+        except Exception,e:
+            print Exception,":",e
+            return None # if failed,return None
+        return True
+    
+    def startServer(self,id):
+        try:
+            client = self.getAuth()
+            client.startServer(id)
+        except Exception,e:
+            print Exception,":",e
+            return None # if failed,return None
+        return True
+        
+    
+    def terminateServer(self,id):
+        try:
+            client = self.getAuth()
+            client.terminateServer(id)
+        except Exception,e:
+            print Exception,":",e
+            return None # if failed,return None
+        return True
+    
+    
+    def addFloatingIps(self,id):
+        try:
+            client = self.getAuth()
+            client.addFloatingIps(id)
+        except Exception,e:
+            print Exception,":",e
+            return None # if failed,return None
+        return True

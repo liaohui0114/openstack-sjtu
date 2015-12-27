@@ -140,14 +140,32 @@ def createInstanceAction(request):
 def instanceDetailAction(request):
     print 'instanceDetailAction'
     if request.method == 'POST':
-        authurl = request.POST["url"]
+        #authurl = request.POST["url"]
         cloudname = request.POST["cloud"]
-        #print "cloudname",cloudname
         cloud = CloudAPI.CloudAPI(**get_nova_credentials(request,cloudname))
-        
         if cloud.isSchedulable():
             details = cloud.getInstanceDetailAll()
-        
         if details:
             print "detailsssssss",details
             return HttpResponse(json.dumps({"details":details}), content_type="application/json")
+        
+def instanceActionsAction(request):
+    print 'instacneActionsAction'
+    if request.method == 'POST':
+        actions = request.POST["actions"]
+        cloudname = request.POST["cloud"]
+        serverid = request.POST["serverid"]
+        print actions,cloudname,serverid
+        cloud = CloudAPI.CloudAPI(**get_nova_credentials(request,cloudname))
+        flag = False # to judge if the action was successed
+        if actions:
+            if "start" == actions:
+                flag = cloud.startServer(serverid)
+            elif "stop" == actions:
+                flag = cloud.stopServer(serverid)
+            elif "terminate" == actions:
+                flag = cloud.terminateServer(serverid)
+            elif "addfloatingip" == actions:
+                flag = cloud.addFloatingIps(serverid)
+        if flag:       
+            return HttpResponse(json.dumps({}), content_type="application/json")   

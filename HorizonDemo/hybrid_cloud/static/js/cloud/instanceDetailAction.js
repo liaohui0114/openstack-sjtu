@@ -146,10 +146,11 @@ function instanceAction(obj){
 	var action = obj.value;//$(obj).val()
 	var instanceId = $(obj).parent().parent().find("td").eq(1).html();
 	var cloudName = $(obj).parent().parent().find("td").eq(2).find("p").html();
-	alert("action:"+action+";instanceId:"+instanceId+";cloudName:"+cloudName);
+	//alert("action:"+action+";instanceId:"+instanceId+";cloudName:"+cloudName);
+	/*
 	switch(action){
-		case "floatingip":
-			alert("floatingip");
+		case "addfloatingip":
+			alert("addfloatingip");
 			//do something about associate floating ips here!
 			break;
 		case "start":
@@ -162,4 +163,28 @@ function instanceAction(obj){
 			alert("terminate");
 			break;
 	}
+	*/
+	$.ajax({
+		url:"/action/instanceActionsAction",
+		//async: false, //if we want to lock the screen
+		data:{
+			"cloud":cloudName,
+			"actions":action,
+			"serverid":instanceId,
+		},
+		type:'POST',//action:post or get
+		dataType:'json',
+		beforeSend:function(){
+			//alert("beforeSend!");
+		},
+		success:function(data){
+			//success
+			alert("successed!");
+			location.reload(); //F5,refresh
+		},
+		error:function(xhr,type){
+			//do nothing
+			alert("status is already exist!");
+		}
+	});
 }
